@@ -1,3 +1,3 @@
 web: gunicorn iotBV3.wsgi
 web: gunicorn iotBV3.wsgi --log-file -
-heroku ps:scale web=1
+web: gunicorn hellodjango.wsgi
