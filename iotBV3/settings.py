@@ -53,6 +53,9 @@ STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'static'),
 )
 
+ADMINS = (
+    ('Heightline', 'teamheightline@mail.ru'),
+)
 # Application definition
 
 INSTALLED_APPS = [
