@@ -42,9 +42,17 @@ COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', False)
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # SECURE_SSL_REDIRECT = True
 WHITENOISE_USE_FINDERS = True
-STATIC_ROOT = None
 PROJECT_ROOT = os.path.dirname(os.path.dirname(__file__))
 TEMPLATE_DEBUG = DEBUG
+
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+STATIC_URL = '/static/'
+
+# Extra places for collectstatic to find static files.
+STATICFILES_DIRS = (
+    os.path.join(PROJECT_ROOT, 'static'),
+)
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -139,7 +147,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 
-STATIC_URL = '/static/'
+
 
 
 GRAPHENE = {
