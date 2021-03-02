@@ -27,12 +27,20 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'rvpiy+4fv(^+*oqw@)1%t^td#eni#av^t(x!x9$7)2#zn_ezw0'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-# ALLOWED_HOSTS = ["127.0.0.1", 'iot-backend-v3.herokuapp.com']
-ALLOWED_HOSTS = []
+EMAIL_HOST = 'teamheightline@mail.ru'
+EMAIL_HOST_USER = '***'
+EMAIL_HOST_PASSWORD = '***'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+SERVER_EMAIL = EMAIL_HOST_USER
+
+ALLOWED_HOSTS = ["127.0.0.1", 'iot-backend-v3.herokuapp.com']
+# ALLOWED_HOSTS = []
 COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', False)
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# SECURE_SSL_REDIRECT = True
 WHITENOISE_USE_FINDERS = True
 STATIC_ROOT = None
 PROJECT_ROOT = os.path.dirname(os.path.dirname(__file__))
