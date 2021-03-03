@@ -64,6 +64,7 @@ CORS_ALLOWED_ORIGINS = [
     "*"
 
 ]
+CORS_ALLOW_ALL_ORIGINS = True
 
 INSTALLED_APPS = [
     'graphene_django',
