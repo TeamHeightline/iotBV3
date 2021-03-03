@@ -57,19 +57,28 @@ ADMINS = (
     ('Heightline', 'teamheightline@mail.ru'),
 )
 # Application definition
+CORS_ALLOWED_ORIGINS = [
+    "https://iot-frontend-show-version.herokuapp.com/",
+    "http://localhost:3000/",
+    "http://127.0.0.1:3000/"
+]
 
 INSTALLED_APPS = [
     'graphene_django',
+    'corsheaders',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'usertests',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
