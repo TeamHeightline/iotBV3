@@ -17,8 +17,12 @@ class MyModelAdmin(admin.ModelAdmin):
     def formfield_for_manytomany(self, db_field, request, **kwargs):
         if db_field.name == "author":
             user = User.objects.get(username=request.user)
-            print(type(user))
             kwargs['queryset'] = QuestionAuthor.objects.filter(created_by=user)
+
+        if db_field.name == "question":
+            user = User.objects.get(username=request.user)
+            kwargs['queryset'] = Question.objects.filter(created_by=user)
+
         return super(MyModelAdmin, self).formfield_for_manytomany(db_field, request, **kwargs)
 
     # Делает так, что в поле created_by можно выбрать только себя, и этот вариант стоит по дефолту
