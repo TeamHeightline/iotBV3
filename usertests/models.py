@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
 from django.contrib.auth.models import User
+
+
 # Create your models here.
 
 
@@ -8,7 +10,8 @@ class QuestionThemes(models.Model):
     """Темы вопросов"""
     name = models.CharField("Тема вопроса", max_length=250)
     description = models.TextField("Описание")
-    created_by = models.ForeignKey(User, verbose_name="Пользователь, который создал эту тему", on_delete=models.SET_NULL, null=True)
+    created_by = models.ForeignKey(User, verbose_name="Пользователь, который создал эту тему",
+                                   on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return self.name
@@ -42,7 +45,6 @@ class Question(models.Model):
     text = models.TextField("Текст вопроса")
     video_url = models.URLField("Ссылка на ютуб видео с вопросом")
 
-
     class Meta:
         verbose_name = "Вопрос"
         verbose_name_plural = "Вопросы"
@@ -55,11 +57,13 @@ class Answer(models.Model):
     created_by = models.ForeignKey(User, verbose_name="Пользователь, который создал этот ответ",
                                    on_delete=models.SET_NULL, null=True)
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answers')
+    is_true = models.BooleanField("Ответ правильный/ошибочный", default=True)
     textV1 = models.TextField("Текст ответа 1")
     textV2 = models.TextField("Текст ответа 2")
     textV3 = models.TextField("Текст ответа 3")
     video_url = models.URLField("Ссылка на ютуб видео с ответом")
-    check_queue = models.PositiveIntegerField(default=0)
+    check_queue = models.PositiveIntegerField("Очередь проверки, чем меньше - тем раньше вопрос будет проверен",
+                                              default=0)
     HARD_LEVEL_OF_ANSWER = [
         ('EASY', 'Очевидный'),
         ('MEDIUM', 'Обычный'),
@@ -74,4 +78,3 @@ class Answer(models.Model):
 
     def __str__(self):
         return "Ответ №" + str(self.id) + " Текст: " + str(self.textV1)
-
