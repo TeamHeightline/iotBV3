@@ -58,7 +58,7 @@ class Answer(models.Model):
                                    on_delete=models.SET_NULL, null=True)
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answers')
     is_true = models.BooleanField("Ответ правильный/ошибочный", default=True)
-    text = models.TextField("Текст ответа", default='')
+    text = models.TextField("Формулировка ответа", default='')
     help_textV1 = models.TextField("Подсказка для упрощенного уровня", default='')
     help_textV2 = models.TextField("Подсказка для нормального уровня", default='')
     help_textV3 = models.TextField("Подсказка для усложненного уровня", default='')
@@ -78,4 +78,4 @@ class Answer(models.Model):
         verbose_name_plural = "Ответы"
 
     def __str__(self):
-        return "Ответ №" + str(self.id) + " Текст: " + str(self.textV1)
+        return "Ответ №" + str(self.id) + " Текст: " + str(self.text)
