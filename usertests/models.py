@@ -58,9 +58,10 @@ class Answer(models.Model):
                                    on_delete=models.SET_NULL, null=True)
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answers')
     is_true = models.BooleanField("Ответ правильный/ошибочный", default=True)
-    textV1 = models.TextField("Текст ответа 1")
-    textV2 = models.TextField("Текст ответа 2")
-    textV3 = models.TextField("Текст ответа 3")
+    text = models.TextField("Текст ответа", default='')
+    help_textV1 = models.TextField("Подсказка для упрощенного уровня", default='')
+    help_textV2 = models.TextField("Подсказка для нормального уровня", default='')
+    help_textV3 = models.TextField("Подсказка для усложненного уровня", default='')
     video_url = models.URLField("Ссылка на ютуб видео с ответом")
     check_queue = models.PositiveIntegerField("Очередь проверки, чем меньше - тем раньше вопрос будет проверен",
                                               default=0)
