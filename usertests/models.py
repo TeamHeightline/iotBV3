@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
 from django.contrib.auth.models import User
-
+from users.models import CustomUser
 
 # Create your models here.
 
@@ -10,7 +10,7 @@ class QuestionThemes(models.Model):
     """Темы вопросов"""
     name = models.CharField("Тема вопроса", max_length=250)
     description = models.TextField("Описание")
-    created_by = models.ForeignKey(User, verbose_name="Пользователь, который создал эту тему",
+    created_by = models.ForeignKey(CustomUser, verbose_name="Пользователь, который создал эту тему",
                                    on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
@@ -24,7 +24,7 @@ class QuestionThemes(models.Model):
 class QuestionAuthor(models.Model):
     """Автор вопроса"""
     name = models.CharField("Автор вопроса", max_length=250)
-    created_by = models.ForeignKey(User, verbose_name="Пользователь, который создал этого автора",
+    created_by = models.ForeignKey(CustomUser, verbose_name="Пользователь, который создал этого автора",
                                    on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
@@ -36,7 +36,7 @@ class QuestionAuthor(models.Model):
 
 
 class Question(models.Model):
-    created_by = models.ForeignKey(User, verbose_name="Пользователь, который создал этот вопрос",
+    created_by = models.ForeignKey(CustomUser, verbose_name="Пользователь, который создал этот вопрос",
                                    on_delete=models.SET_NULL, null=True)
     theme = models.ManyToManyField(QuestionThemes, verbose_name="Темы вопроса",
                                    related_name="question_themes")
@@ -54,7 +54,7 @@ class Question(models.Model):
 
 
 class Answer(models.Model):
-    created_by = models.ForeignKey(User, verbose_name="Пользователь, который создал этот ответ",
+    created_by = models.ForeignKey(CustomUser, verbose_name="Пользователь, который создал этот ответ",
                                    on_delete=models.SET_NULL, null=True)
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='answers')
     is_true = models.BooleanField("Ответ правильный/ошибочный", default=True)

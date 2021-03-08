@@ -26,7 +26,7 @@ class AnswerNode(DjangoObjectType):
         model = Answer
 
 
-class Query(graphene.ObjectType):
+class UserTestQuery(graphene.ObjectType):
     """ Описываем запросы и возвращаемые типы данных """
     question_themes = graphene.List(QuestionThemesNode)
     question_author = graphene.List(QuestionAuthorNode)
@@ -46,7 +46,7 @@ class Query(graphene.ObjectType):
         return Answer.objects.all()
 
 
-class Mutation(graphene.ObjectType):
+class UserTestMutation(graphene.ObjectType):
     add_question_themes = graphene.Field(QuestionThemesNode,
                                          name=graphene.String(required=True),
                                          description=graphene.String())
