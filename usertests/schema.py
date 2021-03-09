@@ -43,6 +43,7 @@ class UserTestQuery(graphene.ObjectType):
         return Question.objects.get(pk=id)
 
     def resolve_answer(self, info):
+        print(info.context.user)
         return Answer.objects.all()
 
 
