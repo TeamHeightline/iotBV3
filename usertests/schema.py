@@ -34,16 +34,23 @@ class UserTestQuery(graphene.ObjectType):
     answer = graphene.List(AnswerNode)
 
     def resolve_question_themes(self, info):
+        print(info.context.user)
+        print(info.context.user.user_access_level)
         return QuestionThemes.objects.all().order_by('-id')
 
     def resolve_question_author(self, info):
+        print(info.context.user)
+        print(info.context.user.user_access_level)
         return QuestionAuthor.objects.all().order_by('-id')
 
     def resolve_question_by_id(self, info, id):
+        print(info.context.user)
+        print(info.context.user.user_access_level)
         return Question.objects.get(pk=id)
 
     def resolve_answer(self, info):
         print(info.context.user)
+        print(info.context.user.user_access_level)
         return Answer.objects.all()
 
 
