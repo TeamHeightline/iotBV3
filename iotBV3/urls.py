@@ -21,5 +21,6 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('graphql/', csrf_exempt(GraphQLView.as_view(graphiql=settings.DEBUG)))
+    path('graphql/', csrf_exempt(GraphQLView.as_view(graphiql=settings.DEBUG))),
+    # path("new/graphql", csrf_exempt(GraphQLView.as_view(graphiql=True))),
 ]

@@ -79,10 +79,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'users',
     'usertests',
+
+    'graphql_jwt.refresh_token.apps.RefreshTokenConfig',
+    "graphql_auth",
+    'django_filters'
 ]
 
+
 MIDDLEWARE = [
+
     'corsheaders.middleware.CorsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -92,6 +99,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'django.contrib.auth.middleware.AuthenticationMiddleware',
 
 ]
 
@@ -121,10 +129,10 @@ WSGI_APPLICATION = 'iotBV3.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd769efv7c8cm5q',
-        'USER': 'eskfducbjxsnje',
-        'PASSWORD': 'd70ee8e04fb9f798e47b4b6b4e41b3144b33ef798d0ccdf356d619f814ad707d',
-        'HOST': 'ec2-52-209-134-160.eu-west-1.compute.amazonaws.com',
+        'NAME': 'dd17od3d3n92nd',
+        'USER': 'htlhhxjvfwaitz',
+        'PASSWORD': '8b4a95477a04160af4e32e42a16eef0a300f16a4f2db715a9404d5675c89e28f',
+        'HOST': 'ec2-54-159-175-113.compute-1.amazonaws.com',
         'PORT': '5432',
     }
 }
@@ -166,10 +174,45 @@ USE_TZ = True
 
 
 
+GRAPHQL_JWT = {
+    "JWT_VERIFY_EXPIRATION": True,
+    "JWT_LONG_RUNNING_REFRESH_TOKEN": True,
+    "JWT_ALLOW_ANY_CLASSES": [
+        "graphql_auth.mutations.Register",
+        "graphql_auth.mutations.VerifyAccount",
+        "graphql_auth.mutations.ResendActivationEmail",
+        "graphql_auth.mutations.SendPasswordResetEmail",
+        "graphql_auth.mutations.PasswordReset",
+        "graphql_auth.mutations.ObtainJSONWebToken",
+        "graphql_auth.mutations.VerifyToken",
+        "graphql_auth.mutations.RefreshToken",
+        "graphql_auth.mutations.RevokeToken",
+        "graphql_auth.mutations.VerifySecondaryEmail",
+    ],
+}
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 GRAPHENE = {
+    # 'iotBV3.schema.schema'
     'SCHEMA': 'iotBV3.schema.schema',
+    'MIDDLEWARE': ['graphql_jwt.middleware.JSONWebTokenMiddleware'],
 }
+
+AUTHENTICATION_BACKENDS = [
+    # 'graphql_jwt.backends.JSONWebTokenBackend',
+    "graphql_auth.backends.GraphQLAuthBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]
+
+AUTH_USER_MODEL = 'users.CustomUser'
+#
+# import socket
+# socket.getaddrinfo('127.0.0.1', 8080)
+#
+# import os
+# assert 'SYSTEMROOT' in os.environ
+
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())

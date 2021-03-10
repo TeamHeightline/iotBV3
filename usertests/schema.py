@@ -26,7 +26,7 @@ class AnswerNode(DjangoObjectType):
         model = Answer
 
 
-class Query(graphene.ObjectType):
+class UserTestQuery(graphene.ObjectType):
     """ Описываем запросы и возвращаемые типы данных """
     question_themes = graphene.List(QuestionThemesNode)
     question_author = graphene.List(QuestionAuthorNode)
@@ -34,19 +34,27 @@ class Query(graphene.ObjectType):
     answer = graphene.List(AnswerNode)
 
     def resolve_question_themes(self, info):
+        print(info.context.user)
+        print(info.context.user.user_access_level)
         return QuestionThemes.objects.all().order_by('-id')
 
     def resolve_question_author(self, info):
+        print(info.context.user)
+        print(info.context.user.user_access_level)
         return QuestionAuthor.objects.all().order_by('-id')
 
     def resolve_question_by_id(self, info, id):
+        print(info.context.user)
+        print(info.context.user.user_access_level)
         return Question.objects.get(pk=id)
 
     def resolve_answer(self, info):
+        print(info.context.user)
+        print(info.context.user.user_access_level)
         return Answer.objects.all()
 
 
-class Mutation(graphene.ObjectType):
+class UserTestMutation(graphene.ObjectType):
     add_question_themes = graphene.Field(QuestionThemesNode,
                                          name=graphene.String(required=True),
                                          description=graphene.String())

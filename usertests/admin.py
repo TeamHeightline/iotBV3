@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.models import User
 # Register your models here.
 from .models import QuestionThemes, QuestionAuthor, Question, Answer
-
+from users.models import CustomUser
 
 class MyModelAdmin(admin.ModelAdmin):
     # Делает так, чтобы staff-ы видели только свои вопросы и ответы, суперпользователь видит все ответы и вопросы
@@ -16,7 +16,7 @@ class MyModelAdmin(admin.ModelAdmin):
     # есть несколько авторов вопросов, он может приписать созданный вопрос только СВОИМ авторам
     def formfield_for_manytomany(self, db_field, request, **kwargs):
         if db_field.name == "author":
-            user = User.objects.get(username=request.user)
+            user = CustomUser.objects.get(username=request.user)
             kwargs['queryset'] = QuestionAuthor.objects.filter(created_by=user)
 
         return super(MyModelAdmin, self).formfield_for_manytomany(db_field, request, **kwargs)
@@ -24,10 +24,10 @@ class MyModelAdmin(admin.ModelAdmin):
     # Делает так, что в поле created_by можно выбрать только себя, и этот вариант стоит по дефолту
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "created_by":
-            kwargs["queryset"] = User.objects.filter(username=request.user)
+            kwargs["queryset"] = CustomUser.objects.filter(username=request.user)
             kwargs['initial'] = request.user
         if db_field.name == "question":
-            user = User.objects.get(username=request.user)
+            user = CustomUser.objects.get(username=request.user)
             kwargs['queryset'] = Question.objects.filter(created_by=user)
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
