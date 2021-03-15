@@ -29,12 +29,7 @@ SECRET_KEY = 'rvpiy+4fv(^+*oqw@)1%t^td#eni#av^t(x!x9$7)2#zn_ezw0'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-EMAIL_HOST = 'teamheightline@mail.ru'
-EMAIL_HOST_USER = '***'
-EMAIL_HOST_PASSWORD = '***'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-SERVER_EMAIL = EMAIL_HOST_USER
+
 
 ALLOWED_HOSTS = ["127.0.0.1", 'iot-backend-v3.herokuapp.com']
 # ALLOWED_HOSTS = []
@@ -56,14 +51,16 @@ STATICFILES_DIRS = (
 ADMINS = (
     ('Heightline', 'teamheightline@mail.ru'),
 )
-# Application definition
-# CORS_ALLOWED_ORIGINS = [
-#     "https://iot-frontend-show-version.herokuapp.com/",
-#     "http://localhost:3000/",
-#     "http://127.0.0.1:3000/",
-#     "*"
-#
-# ]
+
+# Mail settings
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'IotUneversity@gmail.com'
+EMAIL_HOST_PASSWORD = 'passforiot'
+
 # CORS Config
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = False
@@ -191,7 +188,7 @@ GRAPHQL_JWT = {
     ],
 }
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
 
 GRAPHENE = {
     # 'iotBV3.schema.schema'
@@ -212,6 +209,7 @@ AUTH_USER_MODEL = 'users.CustomUser'
 #
 # import os
 # assert 'SYSTEMROOT' in os.environ
+
 
 
 # Activate Django-Heroku.

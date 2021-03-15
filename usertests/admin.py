@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from .models import QuestionThemes, QuestionAuthor, Question, Answer
 from users.models import CustomUser
 
+
 class MyModelAdmin(admin.ModelAdmin):
     # Делает так, чтобы staff-ы видели только свои вопросы и ответы, суперпользователь видит все ответы и вопросы
     def get_queryset(self, request):
